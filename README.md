@@ -72,6 +72,10 @@ COV    FILE                                        LINES RELEVANT   MISSED
 ----------------
 ```
 
+![coveralls](https://github.com/erickbarcenas/invoice_validator/blob/main/assets/excoveralls.png)
+
+
+
 ```
 env MIX_ENV=test mix coveralls.html
 ```
