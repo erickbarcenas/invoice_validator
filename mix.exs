@@ -6,6 +6,7 @@ defmodule InvoiceValidator.MixProject do
       app: :invoice_validator,
       version: "0.1.0",
       elixir: "~> 1.13",
+      test_coverage: [tool: ExCoveralls],
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -23,6 +24,8 @@ defmodule InvoiceValidator.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:tzdata, "~> 1.1"}
     ]
   end
 end
