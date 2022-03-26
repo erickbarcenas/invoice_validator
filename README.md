@@ -160,7 +160,7 @@ calcula el número de caminos que tiene tu método/función (complejidad ciclom�
 
 ### Calcula el % de cobertura de sentencias de tu código. Revisa el número de sentencias de tu código y revisa el número de sentencias cubiertas con sus pruebas unitarias.
 
-### Pruebas de cobertura (excoveralls)
+**Pruebas de cobertura (excoveralls)**
 ```
 env MIX_ENV=test mix coveralls
 ```
@@ -190,16 +190,16 @@ xdg-open cover/excoveralls.html
 
 ## Some util Commands
 
-## Commands
+*Install dependencies*
 ```elixir
 mix deps.get
 ```
 
-### Create project
+*Create project*
 ```
 mix new invoice_validator
 ```
-### Testing
+*Testing*
 ```
 mix test
 ```

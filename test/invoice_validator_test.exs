@@ -65,31 +65,32 @@ defmodule InvoiceValidatorTest do
 
 
   data = [
-      {"72 hrs atrás",   "America/Mazatlan",	~N[2022-03-20 13:06:31],	{ :error, "Invoice was issued more than 72 hrs before received by the PAC"} },
-      {"72 hrs atrás",   "America/Mazatlan",	~N[2022-03-20 14:06:31],    { :error, "Invoice was issued more than 72 hrs before received by the PAC"} },
-      {"72 hrs atrás",   "Mexico/General",	~N[2022-03-20 15:06:31],	:ok },
-      {"72 hrs atrás",   "America/Cancun",	~N[2022-03-20 16:06:31],	:ok },
-      {"72 hrs atrás",   "America/Mazatlan",	~N[2022-03-20 13:06:35],	{:error, "Invoice was issued more than 72 hrs before received by the PAC"} },
-      {"72 hrs atrás",   "America/Mazatlan",	~N[2022-03-20 14:06:35],	{:error, "Invoice was issued more than 72 hrs before received by the PAC"} },
-      {"72 hrs atrás",   "Mexico/General",	~N[2022-03-20 15:06:35],	:ok },
-      {"72 hrs atrás",   "America/Cancun",	~N[2022-03-20 16:06:35],	:ok },
-      {"5 mins adelante", "America/Mazatlan",	~N[2022-03-23 13:11:35],	:ok },
-      {"5 mins adelante", "America/Mazatlan",	~N[2022-03-23 14:11:35],	:ok },
-      {"5 mins adelante", "Mexico/General",	~N[2022-03-23 15:11:35],	:ok },
-      {"5 mins adelante", "America/Cancun",	~N[2022-03-23 16:11:35],	{:error, "Invoice is more than 5 mins ahead in time"} },
-      {"5 mins adelante", "America/Mazatlan",	~N[2022-03-23 13:11:36],	:ok }, #
-      {"5 mins adelante", "America/Mazatlan",	~N[2022-03-23 14:11:36],	:ok }, #
-      {"5 mins adelante", "Mexico/General",	~N[2022-03-23 15:11:36],	{:error, "Invoice is more than 5 mins ahead in time"} },
-      {"5 mins adelante", "America/Cancun",	~N[2022-03-23 16:11:36],	{:error, "Invoice is more than 5 mins ahead in time"} } #ok
+      {"72 hrs",   "America/Mazatlan",	~N[2022-03-20 13:06:31], "fail",	{ :error, "Invoice was issued more than 72 hrs before received by the PAC"} },
+      {"72 hrs",   "America/Mazatlan",	~N[2022-03-20 14:06:31], "fail",    { :error, "Invoice was issued more than 72 hrs before received by the PAC"} },
+      {"72 hrs",   "Mexico/General",	~N[2022-03-20 15:06:31], "success",	:ok },
+      {"72 hrs",   "America/Cancun",	~N[2022-03-20 16:06:31], "success",	:ok },
+      {"72 hrs",   "America/Mazatlan",	~N[2022-03-20 13:06:35], "fail",	{:error, "Invoice was issued more than 72 hrs before received by the PAC"} },
+      {"72 hrs",   "America/Mazatlan",	~N[2022-03-20 14:06:35], "fail",	{:error, "Invoice was issued more than 72 hrs before received by the PAC"} },
+      {"72 hrs",   "Mexico/General",	~N[2022-03-20 15:06:35], "success",	:ok },
+      {"72 hrs",   "America/Cancun",	~N[2022-03-20 16:06:35], "success",	:ok },
+      {"5 mins", "America/Mazatlan",	~N[2022-03-23 13:11:35], "success",	:ok },
+      {"5 mins", "America/Mazatlan",	~N[2022-03-23 14:11:35], "success",	:ok },
+      {"5 mins", "Mexico/General",	~N[2022-03-23 15:11:35], "success",	:ok },
+      {"5 mins", "America/Cancun",	~N[2022-03-23 16:11:35], "success",	{:error, "Invoice is more than 5 mins ahead in time"} },
+      {"5 mins", "America/Mazatlan",	~N[2022-03-23 13:11:36], "success",	:ok }, #
+      {"5 mins", "America/Mazatlan",	~N[2022-03-23 14:11:36], "success",	:ok }, #
+      {"5 mins", "Mexico/General",	~N[2022-03-23 15:11:36], "fail",	{:error, "Invoice is more than 5 mins ahead in time"} },
+      {"5 mins", "America/Cancun",	~N[2022-03-23 16:11:36], "fail",	{:error, "Invoice is more than 5 mins ahead in time"} } #ok
   ]
 
 
-  for {limit, timezone, datetime, response} <- data do
+  for {limit, timezone, datetime, status, response} <- data do
       @limit limit
       @timezone timezone
       @datetime datetime
+      @status status
       @response response
-      test "#{@limit}, emisor in #{@timezone} at #{@datetime} returns" do
+      test "#{@timezone}.#{@datetime}.#{@limit}.#{@status}" do
           pac_date = DateTime.from_naive!(~N[2022-03-23 15:06:35], "Mexico/General")
           emisor = create_datetime(@datetime, @timezone)
 
