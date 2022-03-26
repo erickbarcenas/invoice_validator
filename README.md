@@ -58,7 +58,7 @@ Finished in 0.08 seconds (0.00s async, 0.08s sync)
 ```
 env MIX_ENV=test mix coveralls
 ```
-
+```
 ...................
 
 Finished in 0.07 seconds (0.00s async, 0.07s sync)
@@ -70,7 +70,7 @@ COV    FILE                                        LINES RELEVANT   MISSED
 100.0% lib/invoice_validator.ex                       44       17        0
 [TOTAL] 100.0%
 ----------------
-
+```
 
 ```
 env MIX_ENV=test mix coveralls.html
